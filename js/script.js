@@ -21,7 +21,7 @@ $('#botao2').click(
         $.ajax(
             {
                 type: 'POST',
-                url: `http://localhost:3000/usuario/`,
+                url: `http://localhost:3000/usuario2/`,
                 data: JSON.stringify(
                     {
                         nome_usuario: nome1,
@@ -46,7 +46,7 @@ $('#botao3').click(
         $.ajax(
             {
                 type: 'POST',
-                url: `http://localhost:3000/usuarioo/`,
+                url: `http://localhost:3000/usuario3/`,
                 data: JSON.stringify(
                     {
                         id_usuario: numero2
@@ -57,4 +57,48 @@ $('#botao3').click(
             }
         )
     }
-)
+);
+
+//Atualizar dados de um usuário
+
+$('#botao4').click(
+    () => {
+        let id = $('#id_usuario').val();
+        let nome = $('#nome_usuario').val();
+        let idade1 = $('#idade').val();
+        let cpf = $('#cpf').val();
+        let email = $('#email').val();
+
+        $.ajax(
+            {
+                type: 'POST',
+                url: `http://localhost:3000/usuario4/`,
+                data: JSON.stringify(
+                    {
+                        id_usuario: id,
+                        nome_usuario: nome,
+                        idade: idade1,
+                        cpf: cpf,
+                        email: email
+                    }
+                ),
+                contentType: 'application/json'
+            }
+        )
+    }
+);
+
+//Verificar pendências através do nome do usuário
+
+$("#botao").click(() => {
+    let numero = $('#nome-usuario').val();
+    $.ajax({
+        type: 'GET',
+        url: `http://localhost:3000/usuario5/${numero}`,
+        success: function (res) {
+            $('#nome').html(res.resultado.nome_usuario);
+            $('#idade').html(res.resultado.idade);
+            $('#ocorrencia').html(res.resultado.tipo_ocorrencia);
+        }
+    })
+});

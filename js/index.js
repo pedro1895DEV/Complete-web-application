@@ -33,7 +33,7 @@ app.get("/usuario/:id", (req, res) => {
 });
 
 //Criar um usuário
-app.post('/usuario', function (req, res) {
+app.post('/usuario2', function (req, res) {
     client.query(
         {
             text:
@@ -55,7 +55,7 @@ app.post('/usuario', function (req, res) {
 });
 
 //Deletar um usuário existente
-app.post('/usuarioo', function (req, res) {
+app.post('/usuario3', function (req, res) {
     client.query(
         {
             text:
@@ -73,6 +73,43 @@ app.post('/usuarioo', function (req, res) {
                 )
             }
         );
+});
+
+//Verifica a quantidade de livros que cada usuário pegou
+
+app.post('/usuario4', function (req, res) {
+    client.query(
+        {
+            text:
+                'update usuario set nome_usuario = $2, idade = $3, cpf = $4, email = $5 where id_usuario = $1',
+            values:
+                [req.body.id_usuario, req.body.nome_usuario, req.body.idade, req.body.cpf, req.body.email]
+        }
+    )
+        .then(
+            function (ret) {
+                res.json(
+                    {
+                        dadosEnviados: req.body
+                    }
+                )
+            }
+        );
+});
+
+//Verificar nome do usuário + idade do usuário e o livro que o usuário possui
+
+app.get("/usuario5/:id", (req, res) => {
+    client.query({
+        text: `SELECT usuario.nome_usuario, usuario.idade, livro.nome_livro FROM usuario, livro WHERE usuario.id_usuario = $1`,
+        values: [req.params.id]
+    })
+        .then((ret) => {
+            res.json({
+                sucesso: true,
+                resultado: ret.rows[0]
+            })
+        })
 });
 
 app.listen(
