@@ -32,6 +32,22 @@ app.get("/usuario/:id", (req, res) => {
         })
 });
 
+//Verificar nome do usuário + idade do usuário e o livro que o usuário possui
+
+app.get("/usuario5/:id", (req, res) => {
+    client.query({
+        text: `SELECT usuario.nome_usuario, usuario.idade, livro.nome_livro FROM usuario, livro WHERE usuario.id_usuario = $1`,
+        values: [req.params.id]
+    })
+        .then((ret) => {
+            res.json({
+                sucesso: true,
+                resultado: ret.rows[0]
+            })
+        })
+});
+
+
 //Criar um usuário
 app.post('/usuario2', function (req, res) {
     client.query(
@@ -95,21 +111,6 @@ app.post('/usuario4', function (req, res) {
                 )
             }
         );
-});
-
-//Verificar nome do usuário + idade do usuário e o livro que o usuário possui
-
-app.get("/usuario5/:id", (req, res) => {
-    client.query({
-        text: `SELECT usuario.nome_usuario, usuario.idade, livro.nome_livro FROM usuario, livro WHERE usuario.id_usuario = $1`,
-        values: [req.params.id]
-    })
-        .then((ret) => {
-            res.json({
-                sucesso: true,
-                resultado: ret.rows[0]
-            })
-        })
 });
 
 app.listen(

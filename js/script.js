@@ -90,7 +90,7 @@ $('#botao4').click(
 
 //Verificar pendências através do nome do usuário
 
-$("#botao").click(() => {
+$("#botao5").click(() => {
     let numero = $('#nome-usuario').val();
     $.ajax({
         type: 'GET',
@@ -98,7 +98,7 @@ $("#botao").click(() => {
         success: function (res) {
             $('#nome').html(res.resultado.nome_usuario);
             $('#idade').html(res.resultado.idade);
-            $('#ocorrencia').html(res.resultado.tipo_ocorrencia);
+            $('#livro').html(res.resultado.nome_livro);
         }
     })
 });
