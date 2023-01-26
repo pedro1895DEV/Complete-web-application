@@ -77,4 +77,10 @@ button:hover {
     background-color: #008BB9;
 }
 
+img {
+    width: 50px;
+    position: absolute;
+    right: 100px;
+    bottom: 100px;
+}
 
